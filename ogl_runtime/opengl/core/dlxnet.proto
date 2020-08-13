@@ -1,0 +1,215 @@
+syntax="proto3";
+
+package dlxnet;
+
+message TensorProto{
+    // data format and data type
+    enum DataFormat{
+        // input image layout in pytorch(N, channel, H, W)
+        NCHW=0;
+
+        // input image layout in dlxnet framework
+        NHWC=1;
+
+        // there are some other data format used in target device
+        // the most common data format used in input
+        // and output of all nodes, make sure the last dim
+        // should always be 4 to match with gpu device rgba format
+        NHWC4=3;
+
+        // the data format should be used for convolution filter,
+        // filter should accept nhwc4 tensor input and output the same format
+        // tensor so that the hwn4c4
+        HWN4C4=4;
+
+        // the data format can be used for any more general tensor
+        ANY=5;
+
+        // designed for vector operators
+        ANY4=6;
+    };
+
+    enum DataType{
+        FLOAT32=0;
+        FLOAT16=1;
+        INT32=2;
+        INT8=3;
+    };
+    // data format used in proto model file
+    DataFormat data_format=1;
+
+    // data format used in target device
+    DataFormat target_data_format = 8;
+    DataType data_type=2;
+
+    repeated int32 dims=3;
+
+    // Tensor content must be organized in row-major order.
+    //
+    // Depending on the data_type field, exactly one of the fields below with
+    // name ending in _data is used to store the elements of the tensor.
+
+    // For float and complex64 values
+    // Complex64 tensors are encoded as a single array of floats,
+    // with the real components appearing in odd numbered positions,
+    // and the corresponding imaginary component appearing in the
+    // subsequent even numbered position. (e.g., [1.0 + 2.0i, 3.0 + 4.0i]
+    // is encoded as [1.0, 2.0 ,3.0 ,4.0]
+    // When this field is present, the data_type field MUST be FLOAT or COMPLEX64.
+    repeated float float_data = 4 [packed = true];
+
+    // For int32, uint8, int8, uint16, int16, bool, and float16 values
+    // float16 values must be bit-wise converted to an uint16_t prior
+    // to writing to the buffer.
+    // When this field is present, the data_type field MUST be
+    // INT32, INT16, INT8, UINT16, UINT8, BOOL, or FLOAT16
+    repeated int32 int32_data = 5 [packed = true];
+
+    // For strings.
+    // Each element of string_data is a UTF-8 encoded Unicode
+    // string. No trailing null, no leading BOM. The protobuf "string"
+    // scalar type is not used to match ML community conventions.
+    // When this field is present, the data_type field MUST be STRING
+    repeated bytes string_data = 6;
+
+    // For int64.
+    // When this field is present, the data_type field MUST be INT64
+    repeated int64 int64_data = 7 [packed = true];
+};
+
+
+message Conv2dAttribute{
+    repeated int64 kernel_shape=1;
+    repeated int64 strides=2;
+    repeated int64 pads=3;
+    repeated int64 dilations=4;
+    int64 group=5;
+    string activation_type=6;
+    float min=7;
+    float max=8;
+};
+
+message ConstAttribute{
+    TensorProto value=1;
+}
+
+message BatchNormAttribute{
+    float momentum=1;
+    float epsilon=2;
+}
+
+message ReluAttribute{
+    float slope=1;
+}
+
+message MaxPoolAttribute{
+    // like conv2d other thatn no any param
+    repeated int64 kernel_shape=1;
+    repeated int64 strides=2;
+    repeated int64 pads=3;
+}
+
+message BinaryAttribute{
+    string binary_op_type=1;
+}
+
+message FlattenAttribute{
+    int32 axis=1;
+}
+
+message ClipAttribute{
+    float min=1;
+    float max=2;
+}
+
+message TransposeAttribute{
+    repeated int32 perm=1;
+}
+
+message AvePoolAttribute{
+    repeated int64 kernel_shape=1;
+    repeated int64 strides=2;
+    repeated int64 pads=3;
+}
+
+message ShapeAttribute{
+}
+
+message GemmAttribute{
+    float alpha=1;
+    float beta=2;
+    int32 transB=3;
+}
+
+message InputAttribute{
+    repeated int32 dims=3;
+}
+
+message UnsqueezeAttribute{
+    repeated int32 axes=1;
+}
+
+message ConcatAttribute{
+    int32 axis=1;
+}
+
+message ReshapeAttribute{
+    int32 axis=1;
+}
+
+message GatherAttribute{
+    int32 axis=1;
+}
+
+message Attribute{
+    // all attributes defined here is optional by default
+    // so dont need to care about memory consumption for
+    // a large amount of attributions
+
+    Conv2dAttribute conv2d_attr=1;
+    ConstAttribute const_attr=2;
+    BatchNormAttribute batchnorm_attr=3;
+    ReluAttribute relu_attr=4;
+    MaxPoolAttribute maxpool_attr=5;
+    AvePoolAttribute avepool_attr=6;
+    FlattenAttribute flatten_attr=7;
+    BinaryAttribute binary_attr=8;
+    GemmAttribute gemm_attr=9;
+    InputAttribute input_attr=10;
+    ClipAttribute clip_attr = 11;
+    TransposeAttribute transpose_attr= 12;
+    ShapeAttribute shape_attr = 13;
+    GatherAttribute gather_attr = 14;
+    UnsqueezeAttribute unsqueeze_attr = 15;
+    ConcatAttribute concat_attr= 16;
+    ReshapeAttribute reshape_attr = 17;
+};
+
+
+message NodeProto{
+    string name =5;
+    string type=6;
+
+    repeated int64 input_index=1;
+    repeated int64 output_index=2;
+    Attribute attr=3;
+
+    string doc_string=4;
+};
+
+
+message GraphProto{
+    string name=2;
+    repeated string input_names=5;
+    repeated string tensor_names=3;
+    repeated string output_names=4;
+    repeated NodeProto node=1;
+};
+
+
+message ModelProto{
+    string producer_name=3;
+    GraphProto graph=1;
+    string version=2;
+    string doc_string=4;
+};

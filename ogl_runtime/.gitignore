@@ -1,0 +1,3 @@
+build/*
+opengl/nn/all_shaders.cc
+opengl/nn/all_shaders.h

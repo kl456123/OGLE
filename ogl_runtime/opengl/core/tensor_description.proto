@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package dlxnet;
+
+import "opengl/core/dlxnet.proto";
+/* import "tensorflow/core/framework/allocation_description.proto"; */
+
+message TensorDescription {
+    // Data type of tensor elements
+    TensorProto.DataType data_type = 3;
+    /* // data format used in proto model file */
+    TensorProto.DataFormat data_format=1;
+
+    /* // Shape of the tensor. */
+    /* TensorShapeProto shape = 2; */
+    repeated int32 dims=4;
+
+    // Information about the size and allocator used for the data
+    /* AllocationDescription allocation_description = 4; */
+};
