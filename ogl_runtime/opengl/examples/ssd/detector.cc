@@ -246,7 +246,6 @@ namespace opengl{
         Tensor* anchors = session_->FindTensorByName(names[2]);
 
         Tensor* boxes=nullptr;
-        tmp_tensors_.clear();
         if(tmp_tensors_.empty()){
             // cache here
             boxes = new Tensor(Tensor::DT_FLOAT, box_preds->shape(),
@@ -259,7 +258,6 @@ namespace opengl{
         functor::SSDBBoxDecoder()(session_->context(), box_preds, anchors, boxes,
                 variances_);
 
-        output_tensors_.clear();
         if(output_tensors_.empty()){
             Tensor* boxes_cpu = Tensor::Empty(Tensor::DT_FLOAT,
                     boxes->shape(), dlxnet::TensorProto::ANY);
