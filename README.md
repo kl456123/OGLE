@@ -3,16 +3,16 @@ opengl2.0 based deeplearning inference engine, used for stricted environment,
 like web, opencl-disable arm
 
 
-## Introduce
+## Introduction
 OGLE is mainly for deeplearning inferece, it has two parts,
 1. Model Converter
 2. opengl based graph runtime
-you need to convert model you trained to onnx format first. 
+you need to convert model you trained to onnx format first.
 then use converter to convert model from onnx to dlx format, only dlx
 model can used for graph runtime
 
 ## Install
-### prerequirements
+### Prerequisite
 1. opengl libraries
 2. common utils libraries, like glog gtest gflag
 3. opencv, protobuf please build from source
@@ -53,9 +53,11 @@ cd ogl_runtime/build
 ```
 
 ## Benchmark
-| framework | model | time | platform |
-| OGLE | mobilenet ssd | 8ms | 1080TI |
-| MNN | mobilenet ssd | 9-10ms | 1080TI |
+
+| framework | model | time | platform | mem |
+| -----| ---- | ---- | --- | --- |
+| OGLE | mobilenet ssd | 8ms | 1080TI | 187m |
+| MNN | mobilenet ssd | 9-10ms | 1080TI | 174m |
 
 ## Develop
 
