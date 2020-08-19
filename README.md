@@ -51,6 +51,10 @@ exoprt DST=demo.dlx
 cd ogl_runtime/build
 ./opengl/examples/ssd_detector
 ```
+
+* trained model
+download from [google drive](https://drive.google.com/file/d/1yLALDmJ7F1FoePrkPVCY0l5cFlvsZ0X5/view?usp=sharing)
+or [baiduyunpan](https://pan.baidu.com/s/18Mii22nKlZLhaN-IgBjjQA) , passwd: ef7i
 ![](https://github.com/kl456123/OGLE/blob/master/ogl_runtime/opengl/examples/ssd/result.jpg)
 
 ## Benchmark
