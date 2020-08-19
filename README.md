@@ -51,6 +51,7 @@ exoprt DST=demo.dlx
 cd ogl_runtime/build
 ./opengl/examples/ssd_detector
 ```
+![](https://github.com/kl456123/OGLE/blob/master/ogl_runtime/opengl/examples/ssd/result.jpg)
 
 ## Benchmark
 
