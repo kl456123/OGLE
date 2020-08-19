@@ -54,7 +54,9 @@ cd ogl_runtime/build
 
 * trained model
 download from [google drive](https://drive.google.com/file/d/1yLALDmJ7F1FoePrkPVCY0l5cFlvsZ0X5/view?usp=sharing)
-or [baiduyunpan](https://pan.baidu.com/s/18Mii22nKlZLhaN-IgBjjQA) , passwd: ef7i
+or [baiduyunpan](https://pan.baidu.com/s/18Mii22nKlZLhaN-IgBjjQA) , passwd: ef7i, then put `demo.dlx`
+into build directory, you can use the person detector model to detect in camera or image. the follow image is used
+for demostration.
 ![](https://github.com/kl456123/OGLE/blob/master/ogl_runtime/opengl/examples/ssd/result.jpg)
 
 ## Benchmark

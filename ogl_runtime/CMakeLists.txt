@@ -22,7 +22,7 @@ if(BUILD_DEBUG)
 endif()
 
 find_package(OpenCV REQUIRED)
-find_package(Glog REQUIRED)
+find_package(glog REQUIRED)
 find_package(Protobuf REQUIRED)
 
 include_directories(${Protobuf_INCLUDE_DIRS})
@@ -111,7 +111,7 @@ add_library(${GL_CORE} SHARED ${CORE_SRC_FILES} ${UTIL_SRC_FILES}
     ${PROFILER_SRC_FILES} ${LIB_SRC_FILES} ${ProtoSources}
     ${CMAKE_CURRENT_SOURCE_DIR}/opengl/nn/all_shaders.cc)
 # use both in case anyone of them not found
-target_link_libraries(${GL_CORE} ${OpenGL_LIB} ${GLOG_LIBRARIES} ${Protobuf_LIBRARIES}
+target_link_libraries(${GL_CORE} ${OpenGL_LIB} glog::glog ${Protobuf_LIBRARIES}
     ${PROTOBUF_LIBRARY} -lstdc++fs)
 
 

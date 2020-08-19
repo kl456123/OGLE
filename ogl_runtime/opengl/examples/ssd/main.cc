@@ -56,11 +56,11 @@ int main(int argc, char** argv){
     // }
     // }
 
-    while(true){
+    // while(true){
         // prepare inputs
-        // std::string image_fname = "../opengl/examples/ssd/000000145679.jpg";
-        // raw_image = cv::imread(image_fname);
-        *(cap.get()) >> raw_image;
+        std::string image_fname = "../opengl/examples/ssd/000000145679.jpg";
+        raw_image = cv::imread(image_fname);
+        // *(cap.get()) >> raw_image;
 
         auto t1 = std::chrono::system_clock::now();
         // detect
@@ -74,7 +74,8 @@ int main(int argc, char** argv){
         drawBoxes(finalBoxInfos, raw_image);
         cv::namedWindow("dlxnet", CV_WINDOW_NORMAL);
         cv::imshow("dlxnet", raw_image);
+        cv::imwrite("test.jpg", raw_image);
         cv::waitKey(1);
-    }
+    // }
     return 0;
 }
