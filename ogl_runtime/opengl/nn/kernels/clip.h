@@ -15,8 +15,9 @@ namespace opengl{
             virtual void InferOutputShape(const TensorList& inputs,
                     TensorShapeList& output_shapes)override;
             virtual void InferOutputShape(TensorShapeList& inputs,
-                    TensorShapeList& outputs){};
-            virtual void SetupAttr(const dlxnet::Attribute& attr);
+                    TensorShapeList& outputs)override{};
+            virtual void SetupAttr(const dlxnet::Attribute& attr)override;
+            virtual void SelectKernel(const TensorList& inputs)override;
             virtual ~ClipKernel();
         private:
             float min_;

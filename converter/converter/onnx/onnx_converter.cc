@@ -89,6 +89,9 @@ void ONNXConverter::Run(){
         auto op_conveter_registry = Registry<OpConverter>::Global();
         OpConverter* op_converter=nullptr;
         op_conveter_registry->LookUp(op_type, &op_converter);
+        if(op_type=="Concat"){
+            int a = 10;
+        }
         if(op_converter==nullptr){
             LOG(FATAL)<<"Cannot find Type: "<<op_type;
         }

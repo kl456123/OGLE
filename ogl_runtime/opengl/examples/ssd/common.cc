@@ -23,6 +23,8 @@ void drawBoxes(const std::vector<BoxInfo>& finalBoxInfos, cv::Mat& raw_image){
         auto font = cv::FONT_HERSHEY_SIMPLEX;
         std::stringstream ss;
         ss.precision(3);
+        CHECK_GE(face.class_name, 0);
+        CHECK_LT(face.class_name, class_names.size());
         ss<<class_names[face.class_name]<<" "<<face.score;
         auto txt = ss.str();
         int baseline;

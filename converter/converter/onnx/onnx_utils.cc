@@ -55,9 +55,9 @@ void MakeTensorFromProto(const onnx::TensorProto& onnx_tensor,
     size_t num_elements =1;
     size_t dim_size = onnx_tensor.dims().size();
 
-    if(dim_size==0){
-        dlcl_tensor->add_dims(1);
-    }
+    // if(dim_size==0){
+        // dlcl_tensor->add_dims(1);
+    // }
     for (int i = 0; i < dim_size; ++i) {
         dlcl_tensor->add_dims(onnx_tensor.dims(i));
         num_elements  *= onnx_tensor.dims(i);

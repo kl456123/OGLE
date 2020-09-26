@@ -249,9 +249,9 @@ namespace opengl{
 
 
     uint64 CalcAllocatedSize1D(const IntList& shape, DataFormat dformat){
-        CHECK_GT(shape.size(), 0);
+        CHECK_GE(shape.size(), 0);
         const int dim_size = shape.size();
-        const int last_dim = shape[dim_size-1];
+        const int last_dim = dim_size==0 ? 1: shape[dim_size-1] ;
         int num_elements = 1;
         for(auto item: shape){
             num_elements*=item;
@@ -298,9 +298,9 @@ namespace opengl{
     }
 
     IntList CalcAllocatedSize2D(const IntList& shape, DataFormat dformat){
-        CHECK_GT(shape.size(), 0);
+        CHECK_GE(shape.size(), 0);
         const int dim_size = shape.size();
-        const int last_dim = shape[dim_size-1];
+        const int last_dim = dim_size==0 ? 1: shape[dim_size-1] ;
         int num_elements = 1;
         for(auto item: shape){
             num_elements*=item;

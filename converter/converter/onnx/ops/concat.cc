@@ -6,7 +6,8 @@ DECLARE_OP_CONVERTER(Concat);
 
 void ConcatOpConverter::SetTensorInfo(dlxnet::TensorProto* dlcl_tensor,
         int tensor_index){
-    LOG(FATAL)<<"Cannot set tensor info for concat due to the only one input tensor";
+    OpConverter::SetTensorInfo(dlcl_tensor, tensor_index);
+    // LOG(FATAL)<<"Cannot set tensor info for concat due to the only one input tensor";
 }
 
 void  ConcatOpConverter::Run(dlxnet::NodeProto* dst_node, const void* src_node){

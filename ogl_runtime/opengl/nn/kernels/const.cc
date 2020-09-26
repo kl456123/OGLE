@@ -10,7 +10,7 @@ namespace opengl{
 
         CHECK(!tensor_);
         tensor_ = new Tensor(const_tensor);
-        CHECK_GT(tensor_->shape().size(), 0)<<DebugString();
+        CHECK_GE(tensor_->shape().size(), 0)<<DebugString();
 
         output_tensor_dformats_.emplace_back(const_tensor.target_data_format());
     }

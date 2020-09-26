@@ -227,7 +227,10 @@ namespace opengl{
 
             }
 
-            const int last_stride()const{return shape_[shape_.dims_size()-1];}
+            const int last_stride()const{
+                auto tmp = shape_.dims_size();
+                return tmp==0?1:shape_[tmp-1];
+            }
 
             std::string DebugString()const;
             std::string ShortDebugString()const;

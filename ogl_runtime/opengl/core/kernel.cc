@@ -54,10 +54,16 @@ namespace opengl{
         TensorShapeList input_shapes;
         TensorShapeList output_shapes;
         for(int index:input_tensor_indexes_){
-            input_shapes.emplace_back(session_->FindTensorById(index)->shape());
+            auto ptr = session_->FindTensorById(index);
+            if(ptr){
+                input_shapes.emplace_back(ptr->shape());
+            }
         }
         for(int index: output_tensor_indexes_){
-            output_shapes.emplace_back(session_->FindTensorById(index)->shape());
+            auto ptr = session_->FindTensorById(index);
+            if(ptr){
+                output_shapes.emplace_back(ptr->shape());
+            }
         }
 
         for(int j=0;j<input_tensor_indexes_.size();++j){

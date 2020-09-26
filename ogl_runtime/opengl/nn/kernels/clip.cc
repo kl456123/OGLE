@@ -8,9 +8,11 @@
 
 namespace opengl{
     ClipKernel::ClipKernel(Context* context)
-        :Kernel(context){
-            kernel_fname_ = "../opengl/nn/glsl/clip.glsl";
-        }
+        :Kernel(context){}
+
+    void ClipKernel::SelectKernel(const TensorList& inputs){
+        kernel_fname_ = glsl_clip_glsl;
+    }
 
     void ClipKernel::SetupAttr(const dlxnet::Attribute& attr){
         auto& clip_params = attr.clip_attr();

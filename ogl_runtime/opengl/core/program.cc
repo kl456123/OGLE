@@ -49,7 +49,8 @@ namespace opengl{
         if (!shader_status){
             char infoLog[512];
             glGetShaderInfoLog(shader_id, 512, NULL, infoLog);
-            LOG(FATAL)<< "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog;
+            LOG(FATAL)<< "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog
+                <<"SOURCE: "<<source;
         }
         // Attach the Shader and Free Allocated Memory
         OPENGL_CALL(glAttachShader(program_id_, shader_id));
